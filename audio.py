@@ -2,8 +2,13 @@ import urllib.request
 import json
 import os
 
+cmd = """curl -X POST -H 'Content-Type: application/json' -d '{"yandexPassportOauthToken":"""+os.environ[YND_OAUTH]+""""AQAAAAAIL8wWAATuwdC6Sqa7UUdSqYTZmL_toFk"}' https://iam.api.cloud.yandex.net/iam/v1/tokens"""
+os.system(cmd + " > " + "api.txt")
+with open("api.txt", "r") as file:
+    data = file.read()
+    data  = data[16:][:-4]
 FOLDER_ID = "b1grs9f7cacf81tr4vlc"
-IAM_TOKEN = "CggaATEVAgAAABKABJDpOzeWvEhznNidlPxL198zRLNYXKKttwTexz_Influsu3aFHbAxz3qHDe7l2ef1L085WqQCZxYk5hNZRIxcH5rPL3GublOM-jcKFL8RsI7g1yZ9Llihik2qe2z6Z6TpttkYr4jzQF_uEaiY9cGjKbwBdS_UfHaxuL44E0TRse5o7oihSoQipamYRnuiGnnn6mKQ3Kn_ogIu8Ljxe3uOHO0uTVYqs4c7-pVb4X1LbjRfIMtQUCZJt9UZVre-Q9vLyDiM9PRz8V54z-Qis2SZ3J68ir-lOfsm7pKXleG6HmrX3ViYFzxdH0QFoQXYyCWcaqsFn0nTLmwyvsnvqUz7ynQ1lEIT9u3FwkXabwFTLVwrJjHIZ0h_n8rfQr6BaUTSxvPXYxoAEp70kfiHgYtgSbboMeH2xiTDKi7nxALCXfSSUgH-gqxCRp-cZC6bCb2I0XcgNQ1TjMxYTWFDsWK172FBxwX8RtQ30USgPulcDW__L43O_cX9Gk3sJLG2_WbzaJwBpX9j1mhNZosK3RHwM2lQ0Sz1uUgs4oUk4xZ585gIvUTPCm3Rcp1WSXqcZjOEN2CpLClY5l3TwaReskB-5FAzCEMz9rl1a8lbjbfqg3gfbxdERSPuidjWm0UzO8xhCMw2blS4LMZ0Gl7cOk9Su3yU69r9QQDMhw6h_D5kbMnGmcKIGM2N2YyZTM4NzQxZTQ0YmNhZjc2OWEzYTk4ZTIzMzFiEN674OIFGJ6N4-IFIiUKFGFqZTFtaWM1NXRsdXVwaWtzMTFtEg1pdmFuLmtvdmFsZXY1WgAwAjgBSggaATEVAgAAAFABIPYE"
+IAM_TOKEN = data
 decodedData = ""
 
 def start():
