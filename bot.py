@@ -30,7 +30,10 @@ def voice_message(message):
     print(message.voice.file_id)
     download(message)
     voice = audio.start()
-    textMessage(voice, message)
+    if (len(voice) > 0):
+        textMessage(voice, message)
+    else:
+        bot.send_message(message.from_user.id, "Я ничего не понял, повторите еще раз")
 
 @bot.message_handler(content_types=['text'])
 def text_message(message):
