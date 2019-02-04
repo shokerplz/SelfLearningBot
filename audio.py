@@ -1,24 +1,35 @@
 import urllib.request
 import json
+import os
 
 FOLDER_ID = "b1grs9f7cacf81tr4vlc"
-IAM_TOKEN = "CggaATEVAgAAABKABKfKZMIkkndHjx3xUDrNaK7PApkU6EVzutJI8ugTkiSC_s2VGJQzByCr-GrBSf2705lzGLeVTdGh-izy2hqqsdpF3zXUNaUnkIsSpR5qs7LQfHcjsmprxTdzCT3UnoKxYGFueyw0RyhAqdkBO3BWXgoPffC2jql_yw8qn2G1iaKrYaFGRMFKt5iLvkIlpDKjw4dZmzLE28Z5LJokLDDkVQ5u-W4IxV087Z1D-JkzkR1OikdvlgL0Yh_hXxsQRrCxxPK0uPLxLcuY9gfoVNsXiXnVud2ihNIzic_eFPdkVbaNXBzO0WyEQwwDD5AXgxsqT-p4IiYNDOr5j8GXFSB6yb3GR7b1wUrSSWIFdpvnoVMESerfylDinLC0oOmRVzyLjNTpUWX0pJXfonJGLek5KPKM9SQ_D_y9b88FuQLGTwcX2UkSZV1eUmGEQtxfR30KSrh9wCRJFsqDpNv7gX8JluE_4h5dWbM0QivocGti17kH3qVbc8kslDYZlsngANJfxyeabDzV2MvdDdZfr_FAcb_eGApXXEneu2_yOTuvWY7x6VMUebbzre6Z2e_h6EwogAY4d9EcHUsm7R1rl1XABpwuUfzwBPxPS8h8lqLhMIQazdAurSF9xAzpDdQUe45KVX4n4Ps9UDXxCgmIOvyh2NZY7k5jLyektaAPWK9UaqqcGmcKIDg0YmViYjgxYTZlMzQ4ODA5M2YzNjQ2Nzc5MzMxNjExEOzO1eIFGKyg2OIFIiUKFGFqZTFtaWM1NXRsdXVwaWtzMTFtEg1pdmFuLmtvdmFsZXY1WgAwAjgBSggaATEVAgAAAFABIPYE"
+IAM_TOKEN = "CggaATEVAgAAABKABJDpOzeWvEhznNidlPxL198zRLNYXKKttwTexz_Influsu3aFHbAxz3qHDe7l2ef1L085WqQCZxYk5hNZRIxcH5rPL3GublOM-jcKFL8RsI7g1yZ9Llihik2qe2z6Z6TpttkYr4jzQF_uEaiY9cGjKbwBdS_UfHaxuL44E0TRse5o7oihSoQipamYRnuiGnnn6mKQ3Kn_ogIu8Ljxe3uOHO0uTVYqs4c7-pVb4X1LbjRfIMtQUCZJt9UZVre-Q9vLyDiM9PRz8V54z-Qis2SZ3J68ir-lOfsm7pKXleG6HmrX3ViYFzxdH0QFoQXYyCWcaqsFn0nTLmwyvsnvqUz7ynQ1lEIT9u3FwkXabwFTLVwrJjHIZ0h_n8rfQr6BaUTSxvPXYxoAEp70kfiHgYtgSbboMeH2xiTDKi7nxALCXfSSUgH-gqxCRp-cZC6bCb2I0XcgNQ1TjMxYTWFDsWK172FBxwX8RtQ30USgPulcDW__L43O_cX9Gk3sJLG2_WbzaJwBpX9j1mhNZosK3RHwM2lQ0Sz1uUgs4oUk4xZ585gIvUTPCm3Rcp1WSXqcZjOEN2CpLClY5l3TwaReskB-5FAzCEMz9rl1a8lbjbfqg3gfbxdERSPuidjWm0UzO8xhCMw2blS4LMZ0Gl7cOk9Su3yU69r9QQDMhw6h_D5kbMnGmcKIGM2N2YyZTM4NzQxZTQ0YmNhZjc2OWEzYTk4ZTIzMzFiEN674OIFGJ6N4-IFIiUKFGFqZTFtaWM1NXRsdXVwaWtzMTFtEg1pdmFuLmtvdmFsZXY1WgAwAjgBSggaATEVAgAAAFABIPYE"
+decodedData = ""
 
-with open("file_9.ogg", "rb") as f:
-    data = f.read()
+def start():
+    global decodedData
+    bashCommand = "ffmpeg -i message.ogg audio.wav"
+    os.system(bashCommand)
 
-params = "&".join([
-    "topic=general",
-    "folderId=%s" % FOLDER_ID,
-    "lang=ru-RU"
-])
+    with open("audio.wav", "rb") as f:
+        data = f.read()
+        f.close()
+    os.remove("audio.wav")
+    os.remove("message.ogg")
+    params = "&".join([
+        "topic=general",
+        "format=lpcm",
+        "sampleRateHertz=48000",
+        "folderId=%s" % FOLDER_ID,
+        "lang=ru-RU"
+    ])
 
-url = urllib.request.Request("https://stt.api.cloud.yandex.net/speech/v1/stt:recognize/?%s" % params, data=data)
-url.add_header("Authorization", "Bearer %s" % IAM_TOKEN)
-url.add_header("Transfer-Encoding", "chunked")
+    url = urllib.request.Request("https://stt.api.cloud.yandex.net/speech/v1/stt:recognize/?%s" % params, data=data)
+    url.add_header("Authorization", "Bearer %s" % IAM_TOKEN)
+    url.add_header("Transfer-Encoding", "chunked")
 
-responseData = urllib.request.urlopen(url).read().decode('UTF-8')
-decodedData = json.loads(responseData)
-
-if decodedData.get("error_code") is None:
-    print(decodedData.get("result"))
+    responseData = urllib.request.urlopen(url).read().decode('UTF-8')
+    decodedData = json.loads(responseData)
+    if decodedData.get("error_code") is None:
+        return(decodedData.get("result"))
+    
