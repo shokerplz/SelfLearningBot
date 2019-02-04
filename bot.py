@@ -6,6 +6,7 @@ import urllib3
 import audio
 import apiai
 import json
+import os
 BOT_API = "730716713:AAGy7qWPNEuVkWW61h1tm9ALsNnMkl4nWDk"
 bot = telebot.TeleBot(BOT_API)
 def get_voice(message):
@@ -38,7 +39,7 @@ def text_message(message):
         textMessage(text, message)
 
 def textMessage(voice, message):
-    request = apiai.ApiAI('ebb441a394344f65a3c392c185116e9e').text_request()
+    request = apiai.ApiAI(os.environ['CLD_TOKEN']).text_request()
     request.lang = 'ru'
     request.session_id = 'SelfLearningBot'
     request.query = voice
