@@ -29,10 +29,6 @@ future==0.17.1
 idna==2.8
 imageio==2.1.2
 imagesize==1.1.0
-instagram-private-api==1.5.7
-instagram-private-api-extensions==0.3.8
-InstagramAPI==1.0.2
-instapy-cli==0.0.6
 ipaddress==1.0.17
 isort==4.3.4
 Jinja2==2.10
