@@ -41,6 +41,10 @@ def text_message(message):
         text = message.text
         textMessage(text, message)
 
+@bot.message_handler(commands=['start', 'help'])
+def start_message(message):
+    bot.send_message(message.from_user.id, "Привет, я обучаемый бот, я понимаю как текстовые сообщения, так и голосовые")
+
 def textMessage(voice, message):
     request = apiai.ApiAI(os.environ['CLD_TOKEN']).text_request()
     request.lang = 'ru'
