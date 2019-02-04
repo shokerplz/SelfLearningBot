@@ -1,8 +1,8 @@
 import urllib.request
 import json
 import os
-
-cmd = """curl -X POST \-H 'Content-Type: application/json' \-d '{"yandexPassportOauthToken": """+os.environ['YND_OAUTH']+"""}' \https://iam.api.cloud.yandex.net/iam/v1/tokens"""
+YND_OAUTH = '"'+os.environ['YND_OAUTH']+'"'
+cmd = """curl -X POST \-H 'Content-Type: application/json' \-d '{"yandexPassportOauthToken": """+YND_OAUTH+"""}' \https://iam.api.cloud.yandex.net/iam/v1/tokens"""
 os.system(cmd + " > " + "api.txt")
 with open("api.txt", "r") as file:
     data = file.read()
