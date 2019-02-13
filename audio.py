@@ -10,6 +10,8 @@ with open("api.txt", "r") as file:
 FOLDER_ID = "b1grs9f7cacf81tr4vlc"
 IAM_TOKEN = data
 decodedData = ""
+this_is_variable = 0
+this_is_string = "String"
 
 def start():
     global decodedData
