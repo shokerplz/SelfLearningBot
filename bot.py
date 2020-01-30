@@ -7,7 +7,7 @@ import audio
 import apiai
 import json
 import os
-BOT_API = "730716713:AAGy7qWPNEuVkWW61h1tm9ALsNnMkl4nWDk"
+BOT_API = "FILL THIS"
 bot = telebot.TeleBot(BOT_API)
 def get_voice(message):
     print("GOT")
