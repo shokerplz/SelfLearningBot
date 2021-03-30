@@ -50,7 +50,7 @@ pefile==2018.8.8
 Pillow==8.1.1
 psutil==5.5.0
 pycparser==2.19
-Pygments==2.3.1
+Pygments==2.7.4
 pylint==2.2.2
 PyOgg==0.6.6a1
 pyOpenSSL==17.5.0
